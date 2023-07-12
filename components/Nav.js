@@ -41,7 +41,7 @@ export default function Nav() {
           </svg>
           Übersicht
         </Link>
-        <Link href={"/"} className={inactiveLink}>
+        <Link href={"/categories"} className={inactiveLink}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -58,7 +58,7 @@ export default function Nav() {
           </svg>
           Kategorien
         </Link>
-        <Link href={"/"} className={inactiveLink}>
+        <Link href={"/products"} className={inactiveLink}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -75,7 +75,7 @@ export default function Nav() {
           </svg>
           Produkte
         </Link>
-        <Link href={"/"} className={inactiveLink}>
+        <Link href={"/settings"} className={inactiveLink}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'

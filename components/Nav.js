@@ -1,12 +1,15 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Nav() {
   const inactiveLink = "flex gap-1 p-1 ";
-  const activeLink = inactiveLink + " bg-gray-50 text-blue-900 rounded-l-lg";
+  const activeLink = inactiveLink + " bg-gray-50 text-green-950 rounded-l-lg";
+  const router = useRouter();
+  const { pathname } = router;
 
   return (
     <aside className='text-white p-4 pr-0'>
-      <Link href={"/"} className='flex gap-2 mb-4 mr-2'>
+      <Link href={"/"} className='flex gap-2 mb-4 mr-10 '>
         <svg
           xmlns='http://www.w3.org/2000/svg'
           fill='none'
@@ -24,7 +27,10 @@ export default function Nav() {
         <span>ToyDorado</span>
       </Link>
       <nav className='flex flex-col gap-2'>
-        <Link href={"/"} className={activeLink}>
+        <Link
+          href={"/"}
+          className={pathname === "/" ? activeLink : inactiveLink}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -41,7 +47,12 @@ export default function Nav() {
           </svg>
           Übersicht
         </Link>
-        <Link href={"/categories"} className={inactiveLink}>
+        <Link
+          href={"/categories"}
+          className={
+            pathname.includes("/categories") ? activeLink : inactiveLink
+          }
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -58,7 +69,10 @@ export default function Nav() {
           </svg>
           Kategorien
         </Link>
-        <Link href={"/products"} className={inactiveLink}>
+        <Link
+          href={"/products"}
+          className={pathname.includes("/products") ? activeLink : inactiveLink}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -75,7 +89,10 @@ export default function Nav() {
           </svg>
           Produkte
         </Link>
-        <Link href={"/settings"} className={inactiveLink}>
+        <Link
+          href={"/settings"}
+          className={pathname.includes("/settings") ? activeLink : inactiveLink}
+        >
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'

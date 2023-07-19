@@ -1,14 +1,23 @@
 import Layout from "@/components/Layout";
+import axios from "axios";
 import { useState } from "react";
 
 export default function NewProduct() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  function handleSubmit() {}
+  async function createProduct(ev) {
+    ev.preventDefault();
+    const data = {
+      title,
+      description,
+      price,
+    };
+    await axios.post("/api/products", data);
+  }
   return (
     <Layout>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={createProduct}>
         <h1>Neues Produkt</h1>
         <label>Produkt Name</label>
         <input

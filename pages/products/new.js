@@ -1,11 +1,16 @@
-import Layout from "@/components/Layout";
-import axios from "axios";
-import { useState } from "react";
+import Layout from '@/components/Layout';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+
+import { useState } from 'react';
 
 export default function NewProduct() {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [price, setPrice] = useState('');
+  const [goBack, setGoBack] = useState(false);
+  const router = useRouter();
+
   async function createProduct(ev) {
     ev.preventDefault();
     const data = {
@@ -13,7 +18,12 @@ export default function NewProduct() {
       description,
       price,
     };
-    await axios.post("/api/products", data);
+    await axios.post('/api/products', data);
+    setGoBack(true);
+  }
+
+  if (goBack) {
+    router.push('/products');
   }
   return (
     <Layout>

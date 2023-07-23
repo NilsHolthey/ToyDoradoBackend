@@ -13,7 +13,6 @@ export default function ProductForm({
   const [price, setPrice] = useState(existingPrice || '');
   const [goBack, setGoBack] = useState(false);
   const router = useRouter();
-  console.log({ _id });
 
   async function saveProduct(ev) {
     ev.preventDefault();

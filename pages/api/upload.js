@@ -4,7 +4,7 @@ import fs from 'fs';
 import mime from 'mime-types';
 import { mongooseConnect } from '@/lib/mongoose';
 // import {isAdminRequest} from "@/pages/api/auth/[...nextauth]";
-const bucketName = 'toy-dorado';
+const bucketName = process.env.BUCKET_NAME;
 
 export default async function handle(req, res) {
   await mongooseConnect();
@@ -27,8 +27,8 @@ export default async function handle(req, res) {
   });
   const links = [];
   for (const file of files.file) {
-    const ext = file.originalFilename.split('.').pop();
-    const newFilename = Date.now() + '.' + ext;
+    // const ext = file.originalFilename.split('.').pop();
+    const newFilename = Date.now() + '_' + file.originalFilename;
     await client.send(
       new PutObjectCommand({
         Bucket: bucketName,

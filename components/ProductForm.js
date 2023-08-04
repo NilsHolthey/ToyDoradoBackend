@@ -1,19 +1,27 @@
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import Spinner from './Spinner';
 
 export default function ProductForm({
   _id,
   title: existingTitle,
   description: existingDescription,
   price: existingPrice,
-  images,
+  images: existingImages,
 }) {
   const [title, setTitle] = useState(existingTitle || '');
   const [description, setDescription] = useState(existingDescription || '');
   const [price, setPrice] = useState(existingPrice || '');
+  const [images, setImages] = useState(existingImages || []);
+  const [isUploading, setIsUploading] = useState(false);
   const [goBack, setGoBack] = useState(false);
   const router = useRouter();
+
+  const handleDelete = (deletingLink) => {
+    const newImages = images.filter((link) => link !== deletingLink);
+    setImages(newImages);
+  };
 
   async function saveProduct(ev) {
     ev.preventDefault();
@@ -21,6 +29,7 @@ export default function ProductForm({
       title,
       description,
       price,
+      images,
     };
     if (_id) {
       await axios.put('/api/products/', { ...data, _id });
@@ -34,27 +43,22 @@ export default function ProductForm({
     router.push('/products');
   }
 
-  // async function uploadImages(ev) {
-  //   const files = ev.target?.files;
-  //   if (files?.length > 0) {
-  //     const data = new FormData();
-  //     files.forEach((file) => data.append('file', file));
-  //     const res = await axios.post('/api/upload', data);
-  //     console.log(res.data);
-  //   }
-  // }
   async function uploadImages(ev) {
     const files = ev.target?.files;
     if (files?.length > 0) {
+      setIsUploading(true);
       const data = new FormData();
       for (const file of files) {
         data.append('file', file);
       }
       const res = await axios.post('/api/upload', data);
-
-      console.log(res.data);
+      setImages((oldImages) => {
+        return [...oldImages, ...res.data.links];
+      });
+      setIsUploading(false);
     }
   }
+
   return (
     <form onSubmit={saveProduct}>
       <label>Produkt Name</label>
@@ -65,7 +69,39 @@ export default function ProductForm({
         onChange={(ev) => setTitle(ev.target.value)}
       />
       <label>Bilder</label>
-      <div className="mb-2">
+      <div className="mb-4 flex flex-wrap gap-2">
+        {!!images?.length &&
+          images.map((links, index) => (
+            <div key={index} className="h-32 relative ">
+              <button
+                type="button"
+                onClick={() => handleDelete(links)}
+                className=" absolute right-0  text-red-700"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="white"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.75}
+                  stroke="currentColor"
+                  className="w7- h-7 "
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </button>
+              <img src={links} alt="productImage" className="rounded-xl" />
+            </div>
+          ))}
+        {isUploading && (
+          <div className="h-32 w-24 p-1 bg-gray-200 flex items-center justify-center rounded-xl">
+            <Spinner />
+          </div>
+        )}
+
         <label className="w-32 h-32 bg-gray-200 border-dashed border-2 border-gray-400 text-center flex text-sm justify-center items-center gap-1 cursor-pointer text-gray-600 rounded-xl">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -84,8 +120,6 @@ export default function ProductForm({
           <div>Hochladen</div>
           <input type="file" className="hidden" onChange={uploadImages}></input>
         </label>
-
-        {!images?.length && <div> keine Bilder vorhanden</div>}
       </div>
       <label>Produkt Beschreibung</label>
       <textarea

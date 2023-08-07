@@ -7,13 +7,15 @@ img {
 }
 
 input,
-textarea {
+textarea,
+select {
   @apply border-2 border-gray-400 rounded-md px-1 w-full;
   @apply mb-2;
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   @apply border-green-900 border-2 outline-none;
 }
 
@@ -38,11 +40,11 @@ table.basic thead tr td {
 }
 
 table.basic tr td {
-  @apply border p-1 border-gray-400;
+  @apply p-1;
 }
 
 table.basic a {
-  @apply bg-green-800 text-white text-sm py-1 px-2 rounded-md inline-flex gap-1 mr-1;
+  @apply bg-green-800 text-white text-sm py-1 px-2 rounded-md inline-flex gap-1 mr-1 float-right;
 
   min-width: 110px;
 }
@@ -61,5 +63,15 @@ table.basic a {
 }
 
 .top {
-  top: -5%;
+  top: -100%;
+}
+
+.show:hover {
+  button {
+    top: 0;
+  }
+}
+
+.bg:nth-child(even) {
+  @apply bg-gray-200;
 }

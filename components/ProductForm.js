@@ -72,37 +72,37 @@ export default function ProductForm({
       <div className="mb-4 flex flex-wrap gap-2">
         {!!images?.length &&
           images.map((links, index) => (
-            <div key={index} className="h-32 relative ">
+            <div key={index} className="h-32 relative  overflow-hidden show">
               <button
                 type="button"
                 onClick={() => handleDelete(links)}
-                className=" absolute right-0  text-red-700"
+                className=" bg-slate-600 transition-all duration-300 ease-in-out absolute right-0 text-white bg-opacity-75 rounded-tr-lg top"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  fill="white"
+                  fill="none"
                   viewBox="0 0 24 24"
                   strokeWidth={1.75}
                   stroke="currentColor"
-                  className="w7- h-7 "
+                  className="w-5 h-5"
                 >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
               </button>
-              <img src={links} alt="productImage" className="rounded-xl" />
+              <img src={links} alt="productImage" className="rounded-lg" />
             </div>
           ))}
         {isUploading && (
-          <div className="h-32 w-24 p-1 bg-gray-200 flex items-center justify-center rounded-xl">
+          <div className="h-32 w-24 p-1 bg-gray-200 flex items-center justify-center rounded-lg">
             <Spinner />
           </div>
         )}
 
-        <label className="w-32 h-32 bg-gray-200 border-dashed border-2 border-gray-400 text-center flex text-sm justify-center items-center gap-1 cursor-pointer text-gray-600 rounded-xl">
+        <label className="w-32 h-32 bg-gray-200 border-dashed border-2 border-gray-400 text-center flex text-sm justify-center items-center gap-1 cursor-pointer text-gray-600 rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

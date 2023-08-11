@@ -13,6 +13,10 @@ select {
   @apply mb-2;
 }
 
+textarea {
+  min-height: 180px;
+}
+
 input:focus,
 textarea:focus,
 select:focus {
@@ -24,7 +28,7 @@ h1 {
 }
 
 label {
-  @apply text-green-950;
+  @apply text-green-950 mt-2;
 }
 
 .btn-primary {
@@ -40,6 +44,10 @@ table.basic thead tr td {
 }
 
 table.basic tr td {
+  @apply p-1;
+}
+
+table.basic td {
   @apply p-1;
 }
 
@@ -59,7 +67,7 @@ table.basic a {
 }
 
 .btn-default {
-  @apply bg-gray-400 text-white;
+  @apply bg-gray-500 text-white;
 }
 
 .top {
@@ -74,4 +82,11 @@ table.basic a {
 
 .bg:nth-child(even) {
   @apply bg-gray-200;
+}
+
+.ellipses {
+  max-width: 350px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

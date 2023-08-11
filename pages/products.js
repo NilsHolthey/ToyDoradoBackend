@@ -15,7 +15,7 @@ export default function Products() {
     });
   }, []);
 
-  const map = products.map((product) => product.createdAt);
+  // const map = products.map((product) => product.createdAt);
 
   return (
     <Layout>
@@ -39,12 +39,12 @@ export default function Products() {
         </svg>
         Hinzufügen
       </Link>
-      <table className="basic mt-3 text-center ">
+      <table className="basic mt-3">
         <thead>
           <tr>
             <td></td>
             <td>Produktname</td>
-            <td>Kategorie</td>
+
             <td>Hinzugefügt am</td>
             <td></td>
           </tr>
@@ -81,8 +81,9 @@ export default function Products() {
                   </div>
                 )}
               </td>
-              <td>{product.title}</td>
-              <td>{product.title}</td>
+              <td className="">
+                <div className="ellipses h-6">{product.title}</div>
+              </td>
 
               <td>{formatISO9075(new Date(product.createdAt))}</td>
 
@@ -127,6 +128,17 @@ export default function Products() {
           ))}
         </tbody>
       </table>
+
+      {/* <div className=" flex flex-col">
+        {products.map((product) => (
+          <p
+            key={product._id}
+            className="w-64 p-2 text-sm border whitespace-pre-wrap"
+          >
+            {product.description}
+          </p>
+        ))}
+      </div> */}
     </Layout>
   );
 }

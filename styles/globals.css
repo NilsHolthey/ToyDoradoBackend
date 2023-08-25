@@ -9,7 +9,7 @@ img {
 input,
 textarea,
 select {
-  @apply border-2 border-gray-400 rounded-md px-1 w-full;
+  @apply border border-gray-300 rounded-sm px-2 py-1 w-full;
   @apply mb-2;
 }
 
@@ -24,27 +24,27 @@ select:focus {
 }
 
 h1 {
-  @apply text-green-950 mb-2 text-xl;
+  @apply text-gray-950 mb-4 text-xl;
 }
 
 label {
-  @apply text-green-950 mt-2;
+  @apply text-gray-600 mt-2 text-sm py-1;
 }
 
 .btn-primary {
-  @apply bg-green-900 text-white px-4 py-1 rounded-md;
+  @apply bg-gray-500 text-white px-4 py-1 rounded-md shadow-md;
 }
 
 table.basic {
-  @apply w-full;
+  @apply w-full rounded-sm shadow-green bg-white;
 }
 
 table.basic thead tr td {
-  @apply bg-green-700 text-white;
+  @apply text-gray-700 text-base p-2 uppercase border-b border-primary bg-highlight;
 }
 
 table.basic tr td {
-  @apply p-1;
+  @apply px-2 py-1;
 }
 
 table.basic td {
@@ -52,7 +52,7 @@ table.basic td {
 }
 
 table.basic a {
-  @apply bg-green-800 text-white text-sm py-1 px-2 rounded-md inline-flex gap-1 mr-1 float-right;
+  @apply text-white text-sm py-1 px-2 rounded-md inline-flex gap-1 m-1 float-right justify-center;
 
   min-width: 110px;
 }
@@ -63,7 +63,7 @@ table.basic a {
 }
 
 .btn-red {
-  @apply bg-red-800 text-white;
+  @apply bg-deleteLight text-white;
 }
 
 .btn-default {
@@ -81,11 +81,27 @@ table.basic a {
 }
 
 .bg:nth-child(even) {
-  @apply bg-gray-200;
+  /* @apply bg-gray-100; */
+
+  background: rgb(240 253 244);
+  background: linear-gradient(
+    90deg,
+    rgb(240 253 244 / 10%) 0%,
+    #e6f2e6 31%,
+    #e6f2e6 72%,
+    rgba(240 253 244/ 10%) 100%
+  );
 }
 
 .ellipses {
   max-width: 350px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.ellipses-s {
+  max-width: 150px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;

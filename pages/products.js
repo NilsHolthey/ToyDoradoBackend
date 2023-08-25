@@ -20,7 +20,7 @@ export default function Products() {
   return (
     <Layout>
       <Link
-        className="bg-gray-200 px-3 py-2 rounded-md float-right mb-2 flex gap-1 items-center font-semibold"
+        className="btn-primary flex w-40 gap-1 items-center"
         href={'/products/new'}
       >
         <svg
@@ -36,23 +36,43 @@ export default function Products() {
             strokeLinejoin="round"
             d="M12 4.5v15m7.5-7.5h-15"
           />
-        </svg>
+        </svg>{' '}
         Hinzufügen
       </Link>
       <table className="basic mt-3">
         <thead>
           <tr>
+            <td className="rounded-tl-lg"></td>
             <td></td>
             <td>Produktname</td>
 
             <td>Hinzugefügt am</td>
-            <td></td>
+            <td>Kategorie</td>
+            <td className="rounded-tr-lg "></td>
           </tr>
         </thead>
         <tbody>
           {products.map((product) => (
             <tr key={product._id} className="bg">
-              <td className="flex justify-center ">
+              <td>
+                <div className="flex items-center justify-end ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="3"
+                    stroke="#616770"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z"
+                    />
+                  </svg>
+                </div>
+              </td>
+              <td>
                 {product.images.length > 0 ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <div className="rounded-full ml-3 w-10 h-10  flex justify-center items-center overflow-hidden ">
@@ -86,9 +106,13 @@ export default function Products() {
               </td>
 
               <td>{formatISO9075(new Date(product.createdAt))}</td>
+              <td className="ellipses-s">{product?.category?.name}</td>
 
               <td>
-                <Link href={'/products/edit/' + product._id}>
+                <Link
+                  href={'/products/edit/' + product._id}
+                  className=" bg-gray-500"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -105,7 +129,10 @@ export default function Products() {
                   </svg>
                   Bearbeiten
                 </Link>
-                <Link href={'/products/delete/' + product._id}>
+                <Link
+                  href={'/products/delete/' + product._id}
+                  className="bg-deleteLight"
+                >
                   {' '}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

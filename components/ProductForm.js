@@ -110,7 +110,7 @@ export default function ProductForm({
   }
 
   return (
-    <form onSubmit={saveProduct}>
+    <form onSubmit={saveProduct} className="max-w-screen-lg">
       <label>Produkt Name</label>
       <input
         type="text"
@@ -212,7 +212,10 @@ export default function ProductForm({
       <div className="mb-4 flex flex-wrap gap-2 mt-2">
         {!!images?.length &&
           images.map((links, index) => (
-            <div key={index} className="h-32 relative  overflow-hidden show">
+            <div
+              key={index}
+              className="h-32 relative  bg-white overflow-hidden show p-4 rounded-md shadow-md border border-gray-200"
+            >
               <button
                 type="button"
                 onClick={() => handleDelete(links)}
@@ -233,7 +236,7 @@ export default function ProductForm({
                   />
                 </svg>
               </button>
-              <img src={links} alt="productImage" className="rounded-lg" />
+              <img src={links} alt="productImage" className="rounded-sm" />
             </div>
           ))}
         {isUploading && (
@@ -242,7 +245,7 @@ export default function ProductForm({
           </div>
         )}
 
-        <label className="w-32 h-32 bg-gray-200 border-dashed border-2 border-gray-400 text-center flex text-sm justify-center items-center gap-1 cursor-pointer text-gray-600 rounded-lg mt-0">
+        <label className="w-32 h-32 bg-gray-200 border-dashed border-2 border-gray-400 text-center flex text-sm justify-center items-center gap-1 cursor-pointer text-gray-600 rounded-md mt-0 shadow-md">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

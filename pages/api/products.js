@@ -1,32 +1,69 @@
 import { Product } from '@/models/Product';
 import { mongooseConnect } from '@/lib/mongoose';
+import { isAdminRequest } from './auth/[...nextauth]';
 
 export default async function handle(req, res) {
   const { method } = req;
   await mongooseConnect();
+  await isAdminRequest(req, res);
 
   if (method === 'GET') {
     if (req.query?.id) {
       res.json(await Product.findOne({ _id: req.query.id }));
     } else {
-      res.json(await Product.find());
+      res.json(await Product.find().populate('category'));
     }
   }
 
   if (method === 'POST') {
-    const { title, description, price, images } = req.body;
+    const {
+      title,
+      description,
+      price,
+      images,
+      category,
+      condition,
+      properties,
+      timestamps,
+    } = req.body;
     const productDoc = await Product.create({
       title,
       description,
       price,
       images,
+      category,
+      condition,
+      properties,
+      timestamps,
     });
     res.json(productDoc);
   }
 
   if (method === 'PUT') {
-    const { title, description, price, images, _id } = req.body;
-    await Product.updateOne({ _id }, { title, description, price, images });
+    const {
+      title,
+      description,
+      price,
+      images,
+      category,
+      condition,
+      properties,
+      timestamps,
+      _id,
+    } = req.body;
+    await Product.updateOne(
+      { _id },
+      {
+        title,
+        description,
+        price,
+        images,
+        category,
+        condition,
+        properties,
+        timestamps,
+      }
+    );
     res.json(true);
   }
 

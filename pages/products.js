@@ -1,33 +1,118 @@
+/* eslint-disable @next/next/no-img-element */
 import Layout from '@/components/Layout';
 import axios from 'axios';
+import { format, formatISO9075, formatRFC7231 } from 'date-fns';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 export default function Products() {
+  // const [postInfo, setPostInfo] = useState(null);
   const [products, setProducts] = useState([]);
+
   useEffect(() => {
     axios.get('/api/products').then((response) => {
       setProducts(response.data);
     });
   }, []);
+
+  // const map = products.map((product) => product.createdAt);
+
   return (
     <Layout>
-      <Link className="bg-gray-200 px-2 py-1 rounded-md" href={'/products/new'}>
+      <Link
+        className="btn-primary flex w-40 gap-1 items-center"
+        href={'/products/new'}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={2}
+          stroke="currentColor"
+          className="w-5 h-5"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 4.5v15m7.5-7.5h-15"
+          />
+        </svg>{' '}
         Hinzufügen
       </Link>
       <table className="basic mt-3">
         <thead>
           <tr>
-            <td>Produktname</td>
+            <td className="rounded-tl-lg"></td>
             <td></td>
+            <td>Produktname</td>
+
+            <td>Hinzugefügt am</td>
+            <td>Kategorie</td>
+            <td className="rounded-tr-lg "></td>
           </tr>
         </thead>
         <tbody>
           {products.map((product) => (
-            <tr key={product._id}>
-              <td>{product.title}</td>
+            <tr key={product._id} className="bg">
               <td>
-                <Link href={'/products/edit/' + product._id}>
+                <div className="flex items-center justify-end ">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth="3"
+                    stroke="#616770"
+                    className="w-4 h-4"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z"
+                    />
+                  </svg>
+                </div>
+              </td>
+              <td>
+                {product.images.length > 0 ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <div className="rounded-full ml-3 w-10 h-10  flex justify-center items-center overflow-hidden ">
+                    <img
+                      src={product.images[0]}
+                      alt="prev img"
+                      className="w-10 h-10 object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-10 h-10 rounded-full bg-slate-300 flex justify-center items-center ml-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="white"
+                      className="w-6 h-6 "
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+                      />
+                    </svg>
+                  </div>
+                )}
+              </td>
+              <td className="">
+                <div className="ellipses h-6">{product.title}</div>
+              </td>
+
+              <td>{formatISO9075(new Date(product.createdAt))}</td>
+              <td className="ellipses-s">{product?.category?.name}</td>
+
+              <td>
+                <Link
+                  href={'/products/edit/' + product._id}
+                  className=" bg-gray-500"
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -44,7 +129,10 @@ export default function Products() {
                   </svg>
                   Bearbeiten
                 </Link>
-                <Link href={'/products/delete/' + product._id}>
+                <Link
+                  href={'/products/delete/' + product._id}
+                  className="bg-deleteLight"
+                >
                   {' '}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,6 +155,17 @@ export default function Products() {
           ))}
         </tbody>
       </table>
+
+      {/* <div className=" flex flex-col">
+        {products.map((product) => (
+          <p
+            key={product._id}
+            className="w-64 p-2 text-sm border whitespace-pre-wrap"
+          >
+            {product.description}
+          </p>
+        ))}
+      </div> */}
     </Layout>
   );
 }
